@@ -16,7 +16,7 @@ interface CarBasicsProps {
 }
 
 const vehicles: Vehicle[] = vehiclesData
-const years = Array.from({ length: 25 }, (_, i) => (2024 - i).toString())
+const years = Array.from({ length: 26 }, (_, i) => (2025 - i).toString())
 const makes = [...new Set(vehicles.map(v => v.make))].sort()
 
 export function CarBasics({

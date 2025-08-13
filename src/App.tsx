@@ -2,12 +2,19 @@ import { useState, useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { Stepper } from '@/components/Stepper'
 import { ServiceSelect } from '@/components/steps/ServiceSelect'
+import { ServiceSelectMobile } from '@/components/steps/ServiceSelectMobile'
 import { CarBasics } from '@/components/steps/CarBasics'
+import { CarBasicsMobile } from '@/components/steps/CarBasicsMobile'
 import { PackageScope } from '@/components/steps/PackageScope'
+import { PackageScopeMobile } from '@/components/steps/PackageScopeMobile'
 import { ConditionTimingLocation } from '@/components/steps/ConditionTimingLocation'
+import { ConditionTimingLocationMobile } from '@/components/steps/ConditionTimingLocationMobile'
 import { ContactWhatsApp } from '@/components/steps/ContactWhatsApp'
+import { ContactWhatsAppMobile } from '@/components/steps/ContactWhatsAppMobile'
 import { FunnelData } from '@/types/funnel'
 import { trackEvent, saveToLocalStorage, loadFromLocalStorage } from '@/lib/utils'
+import { useMobile } from '@/lib/use-mobile'
+import { useKeyboardAware } from '@/lib/use-keyboard-aware'
 
 const TOTAL_STEPS = 5
 
@@ -31,6 +38,8 @@ const initialData: FunnelData = {
 function App() {
   const [currentStep, setCurrentStep] = useState(1)
   const [data, setData] = useState<FunnelData>(initialData)
+  const { isMobile } = useMobile()
+  useKeyboardAware() // Initialize keyboard awareness
 
   // Load saved data on mount
   useEffect(() => {
@@ -90,7 +99,13 @@ function App() {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
-        return (
+        return isMobile ? (
+          <ServiceSelectMobile
+            selectedService={data.service}
+            onServiceSelect={(service) => updateData({ service })}
+            onNext={nextStep}
+          />
+        ) : (
           <ServiceSelect
             selectedService={data.service}
             onServiceSelect={(service) => updateData({ service })}
@@ -98,7 +113,18 @@ function App() {
           />
         )
       case 2:
-        return (
+        return isMobile ? (
+          <CarBasicsMobile
+            year={data.year || ''}
+            make={data.make || ''}
+            model={data.model || ''}
+            onYearChange={(year) => updateData({ year })}
+            onMakeChange={(make) => updateData({ make })}
+            onModelChange={(model) => updateData({ model })}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        ) : (
           <CarBasics
             year={data.year || ''}
             make={data.make || ''}
@@ -111,7 +137,23 @@ function App() {
           />
         )
       case 3:
-        return (
+        return isMobile ? (
+          <PackageScopeMobile
+            service={data.service}
+            package={data.package || ''}
+            finish={data.finish || ''}
+            brand={data.brand || ''}
+            addons={data.addons || []}
+            colorIdea={data.colorIdea || ''}
+            onPackageChange={(pkg) => updateData({ package: pkg })}
+            onFinishChange={(finish) => updateData({ finish })}
+            onBrandChange={(brand) => updateData({ brand })}
+            onAddonsChange={(addons) => updateData({ addons })}
+            onColorIdeaChange={(colorIdea) => updateData({ colorIdea })}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        ) : (
           <PackageScope
             service={data.service}
             package={data.package || ''}
@@ -129,7 +171,16 @@ function App() {
           />
         )
       case 4:
-        return (
+        return isMobile ? (
+          <ConditionTimingLocationMobile
+            condition={data.condition}
+            timing={data.timing}
+            onConditionChange={(condition) => updateData({ condition })}
+            onTimingChange={(timing) => updateData({ timing })}
+            onNext={nextStep}
+            onBack={prevStep}
+          />
+        ) : (
           <ConditionTimingLocation
             condition={data.condition}
             timing={data.timing}
@@ -140,7 +191,13 @@ function App() {
           />
         )
       case 5:
-        return (
+        return isMobile ? (
+          <ContactWhatsAppMobile
+            data={data}
+            onNameChange={(name) => updateData({ name })}
+            onBack={prevStep}
+          />
+        ) : (
           <ContactWhatsApp
             data={data}
             onNameChange={(name) => updateData({ name })}
@@ -182,22 +239,14 @@ function App() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
-        <div className="max-w-md mx-auto">
+        <div className={isMobile ? "w-full" : "max-w-md mx-auto"}>
           <AnimatePresence mode="wait">
             {renderStep()}
           </AnimatePresence>
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 border-t border-gray-800 safe-area-bottom">
-        <div className="container mx-auto px-4 py-4">
-          <div className="text-center text-gray-400 text-sm">
-            <p>Premium car care services in UAE</p>
-            <p className="mt-1">XPEL • 3M • STEK • Professional Installation</p>
-          </div>
-        </div>
-      </footer>
+
     </div>
   )
 }

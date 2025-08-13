@@ -128,9 +128,10 @@ export function ContactWhatsAppMobile({
     <MobileStepWrapper
       onNext={handleWhatsAppSubmit}
       nextDisabled={!data.name || isLoading}
-      nextText={isLoading ? 'Opening WhatsApp...' : 'Open WhatsApp'}
+      nextText={isLoading ? 'Opening WhatsApp...' : 'Send WhatsApp'}
       onBack={onBack}
       showBackButton={true}
+      isWhatsAppButton={true}
     >
       <div className="text-center space-y-2">
         <h2 className="text-2xl font-bold text-white">Almost there!</h2>
@@ -148,23 +149,35 @@ export function ContactWhatsAppMobile({
 
       <div className="space-y-4">
         <div className="bg-gray-800 p-4 rounded-lg">
-          <h3 className="text-white font-semibold mb-2">Quote Summary</h3>
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-gray-400">Service:</span>
-              <span className="text-white">{data.service}</span>
+          <h3 className="text-white font-semibold mb-3">Your Quote Summary</h3>
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Service</div>
+                <div className="text-white font-medium capitalize">{data.service}</div>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Package:</span>
-              <span className="text-white">{data.package}</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Package</div>
+                <div className="text-white font-medium capitalize">{data.package?.replace('_', ' ')}</div>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Car:</span>
-              <span className="text-white">{data.year} {data.make} {data.model}</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Vehicle</div>
+                <div className="text-white font-medium">{data.year} {data.make} {data.model}</div>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Timing:</span>
-              <span className="text-white">{data.timing}</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+              <div>
+                <div className="text-gray-400 text-xs uppercase tracking-wide">Timeline</div>
+                <div className="text-white font-medium capitalize">{data.timing}</div>
+              </div>
             </div>
           </div>
         </div>

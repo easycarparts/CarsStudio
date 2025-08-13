@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { MobileFriendlyInput } from '@/components/ui/mobile-friendly-input'
+import { MobileSelect } from '@/components/ui/mobile-select'
 import { MobileStepWrapper } from '@/components/ui/mobile-step-wrapper'
 import { Vehicle } from '@/types/funnel'
 import vehiclesData from '@/data/vehicles.json'
@@ -16,7 +16,7 @@ interface CarBasicsMobileProps {
 }
 
 const vehicles: Vehicle[] = vehiclesData
-const years = Array.from({ length: 25 }, (_, i) => (2024 - i).toString())
+const years = Array.from({ length: 26 }, (_, i) => (2025 - i).toString())
 const makes = [...new Set(vehicles.map(v => v.make))].sort()
 
 export function CarBasicsMobile({
@@ -91,34 +91,31 @@ export function CarBasicsMobile({
       </div>
 
       {/* Year Selection */}
-      <MobileFriendlyInput
+      <MobileSelect
         value={year}
         onChange={handleYearChange}
+        options={years.map(y => ({ value: y, label: y }))}
         placeholder="Select year"
         label="Year"
-        options={years}
-        onOptionSelect={handleYearChange}
       />
 
       {/* Make Selection */}
-      <MobileFriendlyInput
+      <MobileSelect
         value={make}
         onChange={handleMakeChange}
+        options={makes.map(m => ({ value: m, label: m }))}
         placeholder="Select make"
         label="Make"
-        options={makes}
-        onOptionSelect={handleMakeChange}
         disabled={!year}
       />
 
       {/* Model Selection */}
-      <MobileFriendlyInput
+      <MobileSelect
         value={model}
         onChange={handleModelChange}
+        options={getModelOptions().map(m => ({ value: m, label: m }))}
         placeholder="Select model"
         label="Model"
-        options={getModelOptions()}
-        onOptionSelect={handleModelChange}
         disabled={!year || !make}
       />
     </MobileStepWrapper>

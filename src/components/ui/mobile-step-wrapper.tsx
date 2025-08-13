@@ -10,6 +10,8 @@ interface MobileStepWrapperProps {
   showBackButton?: boolean
   backText?: string
   className?: string
+  nextButtonClassName?: string
+  isWhatsAppButton?: boolean
 }
 
 export function MobileStepWrapper({
@@ -20,10 +22,12 @@ export function MobileStepWrapper({
   nextText = 'Next',
   showBackButton = false,
   backText = 'Back',
-  className = ''
+  className = '',
+  nextButtonClassName,
+  isWhatsAppButton = false
 }: MobileStepWrapperProps) {
   return (
-    <div className={`flex flex-col h-full ${className}`}>
+    <div className={`flex flex-col min-h-[100dvh] ${className}`}>
       {/* Main content area with padding bottom to account for sticky button */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -64,9 +68,13 @@ export function MobileStepWrapper({
                 onClick={onNext}
                 disabled={nextDisabled}
                 className={`flex-1 py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
-                  !nextDisabled
-                    ? 'bg-primary text-white hover:bg-red-600'
-                    : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                  nextButtonClassName || (
+                    !nextDisabled
+                      ? isWhatsAppButton
+                        ? 'bg-green-500 text-white hover:bg-green-600'
+                        : 'bg-primary text-white hover:bg-red-600'
+                      : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                  )
                 }`}
               >
                 {nextText}

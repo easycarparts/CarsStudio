@@ -11,6 +11,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Dynamic viewport height and keyboard awareness */
+  min-height: 100dvh;
+  padding-bottom: var(--keyboard-h, 0px);
+}
+
+/* Keyboard-aware styles */
+body.keyboard-open {
+  /* Prevent body scroll when keyboard is open */
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Use dynamic viewport units */
+html {
+  height: 100dvh;
+}
+
+/* Ensure proper stacking for dropdowns */
+.dropdown-portal {
+  z-index: 9999;
+  position: fixed;
 }
 
 /* Safe area support for mobile */
