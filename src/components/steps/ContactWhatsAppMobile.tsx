@@ -149,23 +149,35 @@ export function ContactWhatsAppMobile({
 
       <div className="space-y-4">
         <div className="bg-gray-800 p-4 rounded-lg">
-          <h3 className="text-white font-semibold mb-2">Quote Summary</h3>
+          <h3 className="text-white font-semibold mb-2">Your Quote</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-400">Service:</span>
-              <span className="text-white">{data.service}</span>
+              <span className="text-gray-400">Service</span>
+              <span className="text-white capitalize">{data.service.replace(/_/g, ' ')}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Package:</span>
-              <span className="text-white">{data.package}</span>
+              <span className="text-gray-400">Package</span>
+              <span className="text-white capitalize">{(data.package || '').replace(/_/g, ' ') || '—'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-400">Car:</span>
-              <span className="text-white">{data.year} {data.make} {data.model}</span>
+              <span className="text-gray-400">Car</span>
+              <span className="text-white">{data.year || '—'} {data.make || ''} {data.model || ''}</span>
             </div>
+            {data.finish && (
+              <div className="flex justify-between">
+                <span className="text-gray-400">Finish</span>
+                <span className="text-white capitalize">{data.finish.replace(/_/g, ' ')}</span>
+              </div>
+            )}
+            {data.brand && (
+              <div className="flex justify-between">
+                <span className="text-gray-400">Brand</span>
+                <span className="text-white capitalize">{data.brand}</span>
+              </div>
+            )}
             <div className="flex justify-between">
-              <span className="text-gray-400">Timing:</span>
-              <span className="text-white">{data.timing}</span>
+              <span className="text-gray-400">When</span>
+              <span className="text-white">{(data.timing || '').replace(/_/g, ' ')}</span>
             </div>
           </div>
         </div>
@@ -173,3 +185,4 @@ export function ContactWhatsAppMobile({
     </MobileStepWrapper>
   )
 }
+
