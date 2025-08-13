@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { MobileSelect } from '@/components/ui/mobile-select'
+import { SearchableSelect } from '@/components/SearchableSelect'
 import { MobileStepWrapper } from '@/components/ui/mobile-step-wrapper'
 import { Vehicle } from '@/types/funnel'
 import vehiclesData from '@/data/vehicles.json'
@@ -91,30 +91,30 @@ export function CarBasicsMobile({
       </div>
 
       {/* Year Selection */}
-      <MobileSelect
+      <SearchableSelect
         value={year}
         onChange={handleYearChange}
         options={years.map(y => ({ value: y, label: y }))}
-        placeholder="Select year"
+        placeholder="Search year..."
         label="Year"
       />
 
       {/* Make Selection */}
-      <MobileSelect
+      <SearchableSelect
         value={make}
         onChange={handleMakeChange}
         options={makes.map(m => ({ value: m, label: m }))}
-        placeholder="Select make"
+        placeholder="Search make..."
         label="Make"
         disabled={!year}
       />
 
       {/* Model Selection */}
-      <MobileSelect
+      <SearchableSelect
         value={model}
         onChange={handleModelChange}
         options={getModelOptions().map(m => ({ value: m, label: m }))}
-        placeholder="Select model"
+        placeholder="Search model..."
         label="Model"
         disabled={!year || !make}
       />

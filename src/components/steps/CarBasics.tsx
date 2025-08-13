@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Input } from '@/components/ui/input'
+import { SearchableSelect } from '@/components/SearchableSelect'
 import { Vehicle } from '@/types/funnel'
 import vehiclesData from '@/data/vehicles.json'
 
@@ -29,28 +29,7 @@ export function CarBasics({
   onNext,
   onBack
 }: CarBasicsProps) {
-  const [showYearSuggestions, setShowYearSuggestions] = useState(false)
-  const [showMakeSuggestions, setShowMakeSuggestions] = useState(false)
-  const [showModelSuggestions, setShowModelSuggestions] = useState(false)
-  const [filteredMakes, setFilteredMakes] = useState(makes)
   const [filteredModels, setFilteredModels] = useState<Vehicle[]>([])
-  
-  const yearRef = useRef<HTMLDivElement>(null)
-  const makeRef = useRef<HTMLDivElement>(null)
-  const modelRef = useRef<HTMLDivElement>(null)
-
-  console.log('CarBasics rendered with:', { year, make, model }) // Debug log
-
-  // Filter makes based on input
-  useEffect(() => {
-    if (make) {
-      setFilteredMakes(makes.filter(m => 
-        m.toLowerCase().includes(make.toLowerCase())
-      ))
-    } else {
-      setFilteredMakes(makes)
-    }
-  }, [make])
 
   // Filter models based on year and make
   useEffect(() => {
@@ -64,47 +43,39 @@ export function CarBasics({
     }
   }, [year, make])
 
-  // Close dropdowns when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (yearRef.current && !yearRef.current.contains(event.target as Node)) {
-        setShowYearSuggestions(false)
-      }
-      if (makeRef.current && !makeRef.current.contains(event.target as Node)) {
-        setShowMakeSuggestions(false)
-      }
-      if (modelRef.current && !modelRef.current.contains(event.target as Node)) {
-        setShowModelSuggestions(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
   const handleYearChange = (newYear: string) => {
-    console.log('Year changed to:', newYear) // Debug log
     onYearChange(newYear)
+    // Clear make and model when year changes
+    if (newYear !== year) {
+      onMakeChange('')
+      onModelChange('')
+    }
   }
 
   const handleMakeChange = (newMake: string) => {
-    console.log('Make changed to:', newMake) // Debug log
     onMakeChange(newMake)
+    // Clear model when make changes
+    if (newMake !== make) {
+      onModelChange('')
+    }
   }
 
   const handleModelChange = (newModel: string) => {
-    console.log('Model changed to:', newModel) // Debug log
     onModelChange(newModel)
   }
 
   const handleNext = () => {
-    console.log('Next button clicked') // Debug log
     onNext()
   }
 
   const handleBack = () => {
-    console.log('Back button clicked') // Debug log
     onBack()
+  }
+
+  // Get model options for the selected make
+  const getModelOptions = () => {
+    if (!year || !make) return []
+    return [...new Set(filteredModels.map(v => v.model))].sort()
   }
 
   return (
@@ -120,117 +91,33 @@ export function CarBasics({
       </div>
 
       {/* Year Selection */}
-      <div className="space-y-3" ref={yearRef}>
-        <label className="text-white font-medium">Year</label>
-        <div className="relative">
-          <Input
-            value={year}
-            onChange={(e) => {
-              console.log('Year input changed:', e.target.value) // Debug log
-              handleYearChange(e.target.value)
-            }}
-            onFocus={() => {
-              console.log('Year input focused') // Debug log
-              setShowYearSuggestions(true)
-            }}
-            placeholder="Select year"
-            className="bg-gray-800 border-gray-600 text-white placeholder:text-gray-400"
-          />
-          {showYearSuggestions && (
-            <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-600 rounded-lg max-h-48 overflow-y-auto shadow-lg">
-              {years.map((y) => (
-                <button
-                  key={y}
-                  onClick={() => {
-                    console.log('Year selected:', y) // Debug log
-                    handleYearChange(y)
-                    setShowYearSuggestions(false)
-                  }}
-                  className="w-full px-4 py-3 text-left text-white hover:bg-gray-700 transition-colors"
-                >
-                  {y}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <SearchableSelect
+        value={year}
+        onChange={handleYearChange}
+        options={years.map(y => ({ value: y, label: y }))}
+        placeholder="Search year..."
+        label="Year"
+      />
 
       {/* Make Selection */}
-      <div className="space-y-3" ref={makeRef}>
-        <label className="text-white font-medium">Make</label>
-        <div className="relative">
-          <Input
-            value={make}
-            onChange={(e) => {
-              console.log('Make input changed:', e.target.value) // Debug log
-              handleMakeChange(e.target.value)
-            }}
-            onFocus={() => {
-              console.log('Make input focused') // Debug log
-              setShowMakeSuggestions(true)
-            }}
-            placeholder="Select make"
-            className="bg-gray-800 border-gray-600 text-white placeholder:text-gray-400"
-          />
-          {showMakeSuggestions && filteredMakes.length > 0 && (
-            <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-600 rounded-lg max-h-48 overflow-y-auto shadow-lg">
-              {filteredMakes.map((m) => (
-                <button
-                  key={m}
-                  onClick={() => {
-                    console.log('Make selected:', m) // Debug log
-                    handleMakeChange(m)
-                    setShowMakeSuggestions(false)
-                  }}
-                  className="w-full px-4 py-3 text-left text-white hover:bg-gray-700 transition-colors"
-                >
-                  {m}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <SearchableSelect
+        value={make}
+        onChange={handleMakeChange}
+        options={makes.map(m => ({ value: m, label: m }))}
+        placeholder="Search make..."
+        label="Make"
+        disabled={!year}
+      />
 
       {/* Model Selection */}
-      <div className="space-y-3" ref={modelRef}>
-        <label className="text-white font-medium">Model</label>
-        <div className="relative">
-          <Input
-            value={model}
-            onChange={(e) => {
-              console.log('Model input changed:', e.target.value) // Debug log
-              handleModelChange(e.target.value)
-            }}
-            onFocus={() => {
-              console.log('Model input focused') // Debug log
-              setShowModelSuggestions(true)
-            }}
-            placeholder="Select model"
-            className="bg-gray-800 border-gray-600 text-white placeholder:text-gray-400"
-          />
-          {showModelSuggestions && filteredModels.length > 0 && (
-            <div className="absolute z-50 w-full mt-1 bg-gray-800 border border-gray-600 rounded-lg max-h-48 overflow-y-auto shadow-lg">
-              <div className="dropdown-suggestions">
-                {filteredModels.map((v) => (
-                  <button
-                    key={`${v.year}-${v.make}-${v.model}`}
-                    onClick={() => {
-                      console.log('Model selected:', v.model) // Debug log
-                      handleModelChange(v.model)
-                      setShowModelSuggestions(false)
-                    }}
-                    className="w-full px-4 py-3 text-left text-white hover:bg-gray-700 transition-colors"
-                  >
-                    {v.model}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      <SearchableSelect
+        value={model}
+        onChange={handleModelChange}
+        options={getModelOptions().map(m => ({ value: m, label: m }))}
+        placeholder="Search model..."
+        label="Model"
+        disabled={!year || !make}
+      />
 
       {/* Navigation */}
       <div className="flex gap-3 pt-4">
