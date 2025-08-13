@@ -27,7 +27,7 @@ export function MobileStepWrapper({
   isWhatsAppButton = false
 }: MobileStepWrapperProps) {
   return (
-    <div className={`flex flex-col min-h-[100dvh] ${className}`}>
+    <div className={`flex flex-col h-full ${className}`}>
       {/* Main content area with padding bottom to account for sticky button */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { SearchableSelect } from '@/components/SearchableSelect'
+import AutoInput from '@/components/AutoInput'
 import { Vehicle } from '@/types/funnel'
 import vehiclesData from '@/data/vehicles.json'
 
@@ -16,8 +16,11 @@ interface CarBasicsProps {
 }
 
 const vehicles: Vehicle[] = vehiclesData
-const years = Array.from({ length: 26 }, (_, i) => (2025 - i).toString())
-const makes = [...new Set(vehicles.map(v => v.make))].sort()
+const years = Array.from({ length: 50 }).map((_, i) => {
+  const y = new Date().getFullYear() + 1 - i
+  return { label: String(y) }
+})
+const makes = [...new Set(vehicles.map(v => v.make))].sort().map(m => ({ label: m }))
 
 export function CarBasics({
   year,
@@ -31,6 +34,10 @@ export function CarBasics({
 }: CarBasicsProps) {
   const [filteredModels, setFilteredModels] = useState<Vehicle[]>([])
 
+  console.log('CarBasics rendered with:', { year, make, model }) // Debug log
+
+  // Native datalist filters automatically; no custom filtering needed
+
   // Filter models based on year and make
   useEffect(() => {
     if (year && make) {
@@ -43,39 +50,31 @@ export function CarBasics({
     }
   }, [year, make])
 
+  // No custom dropdowns anymore
+
   const handleYearChange = (newYear: string) => {
+    console.log('Year changed to:', newYear) // Debug log
     onYearChange(newYear)
-    // Clear make and model when year changes
-    if (newYear !== year) {
-      onMakeChange('')
-      onModelChange('')
-    }
   }
 
   const handleMakeChange = (newMake: string) => {
+    console.log('Make changed to:', newMake) // Debug log
     onMakeChange(newMake)
-    // Clear model when make changes
-    if (newMake !== make) {
-      onModelChange('')
-    }
   }
 
   const handleModelChange = (newModel: string) => {
+    console.log('Model changed to:', newModel) // Debug log
     onModelChange(newModel)
   }
 
   const handleNext = () => {
+    console.log('Next button clicked') // Debug log
     onNext()
   }
 
   const handleBack = () => {
+    console.log('Back button clicked') // Debug log
     onBack()
-  }
-
-  // Get model options for the selected make
-  const getModelOptions = () => {
-    if (!year || !make) return []
-    return [...new Set(filteredModels.map(v => v.model))].sort()
   }
 
   return (
@@ -90,33 +89,38 @@ export function CarBasics({
         <p className="text-gray-400">Help us provide a more accurate quote</p>
       </div>
 
-      {/* Year Selection */}
-      <SearchableSelect
+      {/* Year */}
+      <AutoInput
+        id="year-desktop"
+        label="Year"
+        placeholder="Start typing (e.g., 2023)…"
+        options={years}
         value={year}
         onChange={handleYearChange}
-        options={years.map(y => ({ value: y, label: y }))}
-        placeholder="Search year..."
-        label="Year"
+        inputMode="numeric"
+        autoComplete="off"
       />
 
-      {/* Make Selection */}
-      <SearchableSelect
+      {/* Make */}
+      <AutoInput
+        id="make-desktop"
+        label="Make"
+        placeholder="Start typing (e.g., BMW)…"
+        options={makes}
         value={make}
         onChange={handleMakeChange}
-        options={makes.map(m => ({ value: m, label: m }))}
-        placeholder="Search make..."
-        label="Make"
-        disabled={!year}
+        autoComplete="off"
       />
 
-      {/* Model Selection */}
-      <SearchableSelect
+      {/* Model */}
+      <AutoInput
+        id="model-desktop"
+        label="Model"
+        placeholder="Start typing (e.g., M3)…"
+        options={[...new Set(filteredModels.map(v => v.model))].sort().map(m => ({ label: m }))}
         value={model}
         onChange={handleModelChange}
-        options={getModelOptions().map(m => ({ value: m, label: m }))}
-        placeholder="Search model..."
-        label="Model"
-        disabled={!year || !make}
+        autoComplete="off"
       />
 
       {/* Navigation */}

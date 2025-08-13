@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { SearchableSelect } from '@/components/SearchableSelect'
+import AutoInput from '@/components/AutoInput'
 import { MobileStepWrapper } from '@/components/ui/mobile-step-wrapper'
 import { Vehicle } from '@/types/funnel'
 import vehiclesData from '@/data/vehicles.json'
@@ -16,8 +16,11 @@ interface CarBasicsMobileProps {
 }
 
 const vehicles: Vehicle[] = vehiclesData
-const years = Array.from({ length: 26 }, (_, i) => (2025 - i).toString())
-const makes = [...new Set(vehicles.map(v => v.make))].sort()
+const years = Array.from({ length: 50 }).map((_, i) => {
+  const y = new Date().getFullYear() + 1 - i
+  return { label: String(y) }
+})
+const makes = [...new Set(vehicles.map(v => v.make))].sort().map(m => ({ label: m }))
 
 export function CarBasicsMobile({
   year,
@@ -74,8 +77,8 @@ export function CarBasicsMobile({
 
   // Get model options for the selected make
   const getModelOptions = () => {
-    if (!year || !make) return []
-    return [...new Set(filteredModels.map(v => v.model))].sort()
+    if (!year || !make) return [] as { label: string }[]
+    return [...new Set(filteredModels.map(v => v.model))].sort().map(m => ({ label: m }))
   }
 
   return (
@@ -90,33 +93,38 @@ export function CarBasicsMobile({
         <p className="text-gray-400">Help us provide a more accurate quote</p>
       </div>
 
-      {/* Year Selection */}
-      <SearchableSelect
+      {/* Year */}
+      <AutoInput
+        id="year"
+        label="Year"
+        placeholder="Start typing (e.g., 2023)…"
+        options={years}
         value={year}
         onChange={handleYearChange}
-        options={years.map(y => ({ value: y, label: y }))}
-        placeholder="Search year..."
-        label="Year"
+        inputMode="numeric"
+        autoComplete="off"
       />
 
-      {/* Make Selection */}
-      <SearchableSelect
+      {/* Make */}
+      <AutoInput
+        id="make"
+        label="Make"
+        placeholder="Start typing (e.g., BMW)…"
+        options={makes}
         value={make}
         onChange={handleMakeChange}
-        options={makes.map(m => ({ value: m, label: m }))}
-        placeholder="Search make..."
-        label="Make"
-        disabled={!year}
+        autoComplete="off"
       />
 
-      {/* Model Selection */}
-      <SearchableSelect
+      {/* Model */}
+      <AutoInput
+        id="model"
+        label="Model"
+        placeholder="Start typing (e.g., M3)…"
+        options={getModelOptions()}
         value={model}
         onChange={handleModelChange}
-        options={getModelOptions().map(m => ({ value: m, label: m }))}
-        placeholder="Search model..."
-        label="Model"
-        disabled={!year || !make}
+        autoComplete="off"
       />
     </MobileStepWrapper>
   )

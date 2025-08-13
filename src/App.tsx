@@ -14,7 +14,6 @@ import { ContactWhatsAppMobile } from '@/components/steps/ContactWhatsAppMobile'
 import { FunnelData } from '@/types/funnel'
 import { trackEvent, saveToLocalStorage, loadFromLocalStorage } from '@/lib/utils'
 import { useMobile } from '@/lib/use-mobile'
-import { useKeyboardAware } from '@/lib/use-keyboard-aware'
 
 const TOTAL_STEPS = 5
 
@@ -39,7 +38,6 @@ function App() {
   const [currentStep, setCurrentStep] = useState(1)
   const [data, setData] = useState<FunnelData>(initialData)
   const { isMobile } = useMobile()
-  useKeyboardAware() // Initialize keyboard awareness
 
   // Load saved data on mount
   useEffect(() => {

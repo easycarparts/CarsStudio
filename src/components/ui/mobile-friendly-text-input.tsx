@@ -1,5 +1,5 @@
+import { useRef, useEffect } from 'react'
 import { Input } from './input'
-import { useFocusIntoView } from '@/lib/use-focus-into-view'
 
 interface MobileFriendlyTextInputProps {
   value: string
@@ -22,8 +22,28 @@ export function MobileFriendlyTextInput({
   disabled = false,
   required = false
 }: MobileFriendlyTextInputProps) {
-  const { elementRef, handleFocus } = useFocusIntoView()
-  const inputRef = elementRef as React.RefObject<HTMLInputElement>
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  // Handle mobile keyboard interactions
+  useEffect(() => {
+    const handleFocus = () => {
+      // Scroll to input on mobile when focused
+      if (window.innerWidth <= 768 && inputRef.current) {
+        setTimeout(() => {
+          inputRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          })
+        }, 300) // Small delay to let keyboard open
+      }
+    }
+
+    const input = inputRef.current
+    if (input) {
+      input.addEventListener('focus', handleFocus)
+      return () => input.removeEventListener('focus', handleFocus)
+    }
+  }, [])
 
   return (
     <div className={`space-y-3 ${className}`}>
@@ -36,7 +56,6 @@ export function MobileFriendlyTextInput({
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        onFocus={handleFocus}
         placeholder={placeholder}
         className="bg-gray-800 border-gray-600 text-white placeholder:text-gray-400"
         disabled={disabled}
