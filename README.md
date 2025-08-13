@@ -12,7 +12,7 @@ A modern, mobile-first web application for Cars Studio to generate instant quote
 - **Analytics Tracking**: Meta Pixel, TikTok Pixel, and Google Analytics support
 - **Local Storage**: Saves user progress automatically
 - **Responsive UI**: Beautiful animations and modern design
-
+  
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 18 + TypeScript

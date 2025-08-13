@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import { MobileFriendlyInput } from '@/components/ui/mobile-friendly-input'
 import { MobileStepWrapper } from '@/components/ui/mobile-step-wrapper'
 import { Vehicle } from '@/types/funnel'

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
-import { StickyButton } from './sticky-button'
 
 interface MobileStepWrapperProps {
   children: ReactNode
