@@ -27,8 +27,7 @@ export function MobileStepWrapper({
   nextButtonClassName,
   isWhatsAppButton = false
 }: MobileStepWrapperProps) {
-  const { isKeyboardOpen, viewportHeight } = useMobile()
-  const keyboardOffsetPx = Math.max(0, typeof window !== 'undefined' ? (window.innerHeight - viewportHeight) : 0)
+  const { isKeyboardOpen } = useMobile()
   return (
     <div className={`flex flex-col h-full ${className}`}>
       {/* Main content area with padding bottom to account for sticky button */}
@@ -46,10 +45,10 @@ export function MobileStepWrapper({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`fixed left-0 right-0 bg-gray-900 border-t border-gray-700 ${isKeyboardOpen ? 'p-2' : 'p-3 sm:p-4'} z-50`}
+          className={`fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 ${isKeyboardOpen ? 'p-2' : 'p-3 sm:p-4'} z-50`}
           style={{
-            // Pin above the on-screen keyboard using visualViewport diff
-            bottom: `${keyboardOffsetPx}px`
+            // Ensure button is above any potential keyboard on mobile
+            bottom: 'env(safe-area-inset-bottom, 0px)'
           }}
         >
           <div className="flex gap-2 sm:gap-3">

@@ -4,6 +4,7 @@ import { MobileFriendlyTextInput } from '@/components/ui/mobile-friendly-text-in
 import { MobileStepWrapper } from '@/components/ui/mobile-step-wrapper'
 import { Button } from '@/components/ui/button'
 import { generateWhatsAppMessage, calculateLeadGrade, trackEvent } from '@/lib/utils'
+import servicesConfig from '@/data/services.json'
 import { FunnelData } from '@/types/funnel'
 
 interface ContactWhatsAppMobileProps {
@@ -124,14 +125,38 @@ export function ContactWhatsAppMobile({
     )
   }
 
+  // Helpers to show human-friendly names
+  const getServiceName = (id?: string) =>
+    id ? servicesConfig.services[id as keyof typeof servicesConfig.services]?.name ?? id : ''
+
+  const getPackageName = (serviceId?: string, packageId?: string) => {
+    if (!serviceId || !packageId) return ''
+    const svc = servicesConfig.services[serviceId as keyof typeof servicesConfig.services] as any
+    const pkg = svc?.packages?.find((p: any) => p.id === packageId)
+    return pkg?.name || packageId
+  }
+
+  const getFinishName = (finishId?: string) => {
+    if (!data.service || !finishId) return ''
+    const svc = servicesConfig.services[data.service as keyof typeof servicesConfig.services] as any
+    const fin = svc?.finishes?.find((f: any) => f.id === finishId)
+    return fin?.name || finishId
+  }
+
+  const getBrandName = (brandId?: string) => {
+    if (!data.service || !brandId) return ''
+    const svc = servicesConfig.services[data.service as keyof typeof servicesConfig.services] as any
+    const b = svc?.brands?.find((x: any) => x.id === brandId)
+    return b?.name || brandId
+  }
+
+  const getTimingName = (id?: string) =>
+    id ? servicesConfig.timing.find(t => t.id === id)?.name ?? id : ''
+
   return (
     <MobileStepWrapper
-      onNext={handleWhatsAppSubmit}
-      nextDisabled={!data.name || isLoading}
-      nextText={isLoading ? 'Opening WhatsApp...' : 'Send WhatsApp'}
       onBack={onBack}
       showBackButton={true}
-      isWhatsAppButton={true}
     >
       <div className="text-center space-y-2">
         <h2 className="text-2xl font-bold text-white">Almost there!</h2>
@@ -153,36 +178,40 @@ export function ContactWhatsAppMobile({
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-400">Service</span>
-              <span className="text-white capitalize">{data.service.replace(/_/g, ' ')}</span>
+              <span className="text-white">{getServiceName(data.service)}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Package</span>
-              <span className="text-white capitalize">{(data.package || '').replace(/_/g, ' ') || '—'}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Car</span>
-              <span className="text-white">{data.year || '—'} {data.make || ''} {data.model || ''}</span>
-            </div>
-            {data.finish && (
+            {data.package && (
               <div className="flex justify-between">
-                <span className="text-gray-400">Finish</span>
-                <span className="text-white capitalize">{data.finish.replace(/_/g, ' ')}</span>
+                <span className="text-gray-400">Package</span>
+                <span className="text-white">{getPackageName(data.service, data.package)}</span>
               </div>
             )}
-            {data.brand && (
+            {(data.finish || data.brand) && (
               <div className="flex justify-between">
-                <span className="text-gray-400">Brand</span>
-                <span className="text-white capitalize">{data.brand}</span>
+                <span className="text-gray-400">Preference</span>
+                <span className="text-white">{getFinishName(data.finish) || getBrandName(data.brand)}</span>
               </div>
             )}
+            <div className="flex justify-between">
+              <span className="text-gray-400">Vehicle</span>
+              <span className="text-white">{data.year} {data.make} {data.model}</span>
+            </div>
             <div className="flex justify-between">
               <span className="text-gray-400">When</span>
-              <span className="text-white">{(data.timing || '').replace(/_/g, ' ')}</span>
+              <span className="text-white">{getTimingName(data.timing)}</span>
             </div>
           </div>
         </div>
+
+        {/* Primary action right under the summary for visibility */}
+        <Button
+          onClick={handleWhatsAppSubmit}
+          disabled={!data.name || isLoading}
+          className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-lg font-semibold"
+        >
+          {isLoading ? 'Opening WhatsApp…' : 'Send WhatsApp'}
+        </Button>
       </div>
     </MobileStepWrapper>
   )
 }
-
