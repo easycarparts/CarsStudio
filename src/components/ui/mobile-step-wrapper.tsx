@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ReactNode } from 'react'
+import { useMobile } from '@/lib/use-mobile'
 
 interface MobileStepWrapperProps {
   children: ReactNode
@@ -26,6 +27,7 @@ export function MobileStepWrapper({
   nextButtonClassName,
   isWhatsAppButton = false
 }: MobileStepWrapperProps) {
+  const { isKeyboardOpen } = useMobile()
   return (
     <div className={`flex flex-col h-full ${className}`}>
       {/* Main content area with padding bottom to account for sticky button */}
@@ -33,7 +35,7 @@ export function MobileStepWrapper({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="flex-1 space-y-6 px-4 sm:px-0 pb-24" // pb-24 accounts for sticky button height
+        className={`flex-1 space-y-6 px-4 sm:px-0 ${isKeyboardOpen ? 'pb-16' : 'pb-24'}`}
       >
         {children}
       </motion.div>
@@ -43,19 +45,19 @@ export function MobileStepWrapper({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 p-4 z-50"
+          className={`fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 ${isKeyboardOpen ? 'p-2' : 'p-3 sm:p-4'} z-50`}
           style={{
             // Ensure button is above any potential keyboard on mobile
             bottom: 'env(safe-area-inset-bottom, 0px)'
           }}
         >
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3">
             {showBackButton && onBack && (
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={onBack}
-                className="flex-1 bg-gray-700 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:bg-gray-600 transition-all"
+                className={`flex-1 bg-gray-700 text-white ${isKeyboardOpen ? 'py-2 text-sm' : 'py-3 text-base'} px-4 rounded-lg font-semibold hover:bg-gray-600 transition-all`}
               >
                 {backText}
               </motion.button>
@@ -67,7 +69,7 @@ export function MobileStepWrapper({
                 whileTap={{ scale: !nextDisabled ? 0.98 : 1 }}
                 onClick={onNext}
                 disabled={nextDisabled}
-                className={`flex-1 py-4 px-6 rounded-lg font-semibold text-lg transition-all ${
+                className={`flex-1 ${isKeyboardOpen ? 'py-2 text-sm' : 'py-3 text-base'} px-4 rounded-lg font-semibold transition-all ${
                   nextButtonClassName || (
                     !nextDisabled
                       ? isWhatsAppButton
