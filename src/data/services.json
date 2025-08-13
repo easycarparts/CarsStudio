@@ -1,0 +1,172 @@
+{
+  "services": {
+    "wrapping": {
+      "name": "Wrapping",
+      "description": "Full/partial wrap, color change, chrome delete",
+      "packages": [
+        {
+          "id": "full_wrap",
+          "name": "Full Wrap",
+          "description": "Complete vehicle wrap"
+        },
+        {
+          "id": "partial_wrap",
+          "name": "Partial Wrap",
+          "description": "Roof, mirrors, chrome delete"
+        }
+      ],
+      "finishes": [
+        {
+          "id": "gloss",
+          "name": "Gloss",
+          "description": "High-gloss finish"
+        },
+        {
+          "id": "matte",
+          "name": "Matte",
+          "description": "Matte finish"
+        },
+        {
+          "id": "satin",
+          "name": "Satin",
+          "description": "Satin finish"
+        },
+        {
+          "id": "flip",
+          "name": "Flip",
+          "description": "Color-shifting finish"
+        }
+      ]
+    },
+    "ppf": {
+      "name": "Paint Protection Film (PPF)",
+      "description": "Full front / track pack / full body",
+      "packages": [
+        {
+          "id": "full_front",
+          "name": "Full Front",
+          "description": "Hood, fenders, bumper, mirrors"
+        },
+        {
+          "id": "track_pack",
+          "name": "Track Pack",
+          "description": "Full front + rocker panels"
+        },
+        {
+          "id": "full_body",
+          "name": "Full Body",
+          "description": "Complete vehicle protection"
+        }
+      ],
+      "brands": [
+        {
+          "id": "xpel",
+          "name": "XPEL",
+          "description": "Premium protection film"
+        },
+        {
+          "id": "3m",
+          "name": "3M",
+          "description": "Professional grade film"
+        },
+        {
+          "id": "stek",
+          "name": "STEK",
+          "description": "Advanced protection technology"
+        },
+        {
+          "id": "no_preference",
+          "name": "No Preference",
+          "description": "Let us recommend"
+        }
+      ]
+    },
+    "detailing": {
+      "name": "Detailing",
+      "description": "Interior / exterior / full, extras",
+      "packages": [
+        {
+          "id": "interior",
+          "name": "Interior Detailing",
+          "description": "Deep clean interior surfaces"
+        },
+        {
+          "id": "exterior",
+          "name": "Exterior Detailing",
+          "description": "Wash, clay, polish, wax"
+        },
+        {
+          "id": "full",
+          "name": "Full Detailing",
+          "description": "Complete interior & exterior"
+        }
+      ],
+      "addons": [
+        {
+          "id": "engine_bay",
+          "name": "Engine Bay Cleaning",
+          "description": "Clean and protect engine compartment"
+        },
+        {
+          "id": "headlight_restore",
+          "name": "Headlight Restoration",
+          "description": "Restore cloudy headlights"
+        },
+        {
+          "id": "pet_hair",
+          "name": "Pet Hair Removal",
+          "description": "Specialized pet hair cleaning"
+        },
+        {
+          "id": "wheel_cleaning",
+          "name": "Wheel & Tire Cleaning",
+          "description": "Deep clean wheels and tires"
+        },
+        {
+          "id": "steam_cleaning",
+          "name": "Steam Cleaning",
+          "description": "Sanitize with steam cleaning"
+        }
+      ]
+    }
+  },
+  "conditions": [
+    {
+      "id": "new",
+      "name": "New",
+      "description": "Brand new vehicle"
+    },
+    {
+      "id": "light_swirls",
+      "name": "Light Swirls",
+      "description": "Minor surface scratches"
+    },
+    {
+      "id": "scratches",
+      "name": "Scratches",
+      "description": "Visible scratches and damage"
+    },
+    {
+      "id": "repainted",
+      "name": "Repainted",
+      "description": "Previously repainted areas"
+    }
+  ],
+  "timing": [
+    {
+      "id": "asap",
+      "name": "ASAP (48h)",
+      "description": "Within 48 hours"
+    },
+    {
+      "id": "this_week",
+      "name": "This Week",
+      "description": "Within 7 days"
+    },
+    {
+      "id": "next_week",
+      "name": "Next Week",
+      "description": "Within 14 days"
+    }
+  ]
+}

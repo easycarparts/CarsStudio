@@ -1,0 +1,452 @@
+[
+  {
+    "year": 2024,
+    "make": "Porsche",
+    "model": "911 GT3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Porsche",
+    "model": "Panamera",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Porsche",
+    "model": "Cayenne",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Porsche",
+    "model": "Macan",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Porsche",
+    "model": "Taycan",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "BMW",
+    "model": "X5",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "BMW",
+    "model": "X6",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "BMW",
+    "model": "X7",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "BMW",
+    "model": "M3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "BMW",
+    "model": "M5",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Mercedes-Benz",
+    "model": "G-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Mercedes-Benz",
+    "model": "S-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Mercedes-Benz",
+    "model": "AMG GT",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Mercedes-Benz",
+    "model": "GLE",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Mercedes-Benz",
+    "model": "GLS",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Audi",
+    "model": "RS6",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Audi",
+    "model": "RS7",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Audi",
+    "model": "Q8",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Audi",
+    "model": "A8",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lexus",
+    "model": "LX",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lexus",
+    "model": "LS",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lexus",
+    "model": "LC",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lexus",
+    "model": "RC F",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lotus",
+    "model": "Emeya",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lotus",
+    "model": "Eletre",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Lotus",
+    "model": "Emira",
+    "segment": "luxury"
+  },
+  {
+    "year": 2024,
+    "make": "Ford",
+    "model": "Mustang",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Ford",
+    "model": "F-150",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Ford",
+    "model": "Explorer",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Ford",
+    "model": "Bronco",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Volkswagen",
+    "model": "Teramont",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Volkswagen",
+    "model": "Tiguan",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Volkswagen",
+    "model": "Atlas",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Volkswagen",
+    "model": "Golf R",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Toyota",
+    "model": "Land Cruiser",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Toyota",
+    "model": "Camry",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Toyota",
+    "model": "RAV4",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Toyota",
+    "model": "Highlander",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Honda",
+    "model": "CR-V",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Honda",
+    "model": "Pilot",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Honda",
+    "model": "Civic",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Nissan",
+    "model": "Patrol",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Nissan",
+    "model": "X-Trail",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Nissan",
+    "model": "Altima",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Hyundai",
+    "model": "Santa Fe",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Hyundai",
+    "model": "Tucson",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Hyundai",
+    "model": "Sonata",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Kia",
+    "model": "Telluride",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Kia",
+    "model": "Sportage",
+    "segment": "mid"
+  },
+  {
+    "year": 2024,
+    "make": "Kia",
+    "model": "K5",
+    "segment": "mid"
+  },
+  {
+    "year": 2023,
+    "make": "Porsche",
+    "model": "911 GT3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "Porsche",
+    "model": "Panamera",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "BMW",
+    "model": "X5",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "BMW",
+    "model": "M3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "Mercedes-Benz",
+    "model": "G-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "Mercedes-Benz",
+    "model": "S-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "Audi",
+    "model": "RS6",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "Lexus",
+    "model": "LX",
+    "segment": "luxury"
+  },
+  {
+    "year": 2023,
+    "make": "Ford",
+    "model": "Mustang",
+    "segment": "mid"
+  },
+  {
+    "year": 2023,
+    "make": "Toyota",
+    "model": "Land Cruiser",
+    "segment": "mid"
+  },
+  {
+    "year": 2022,
+    "make": "Porsche",
+    "model": "911 GT3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2022,
+    "make": "BMW",
+    "model": "X5",
+    "segment": "luxury"
+  },
+  {
+    "year": 2022,
+    "make": "Mercedes-Benz",
+    "model": "G-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2022,
+    "make": "Ford",
+    "model": "Mustang",
+    "segment": "mid"
+  },
+  {
+    "year": 2022,
+    "make": "Toyota",
+    "model": "Land Cruiser",
+    "segment": "mid"
+  },
+  {
+    "year": 2021,
+    "make": "Porsche",
+    "model": "911 GT3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2021,
+    "make": "BMW",
+    "model": "X5",
+    "segment": "luxury"
+  },
+  {
+    "year": 2021,
+    "make": "Mercedes-Benz",
+    "model": "G-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2021,
+    "make": "Ford",
+    "model": "Mustang",
+    "segment": "mid"
+  },
+  {
+    "year": 2021,
+    "make": "Toyota",
+    "model": "Land Cruiser",
+    "segment": "mid"
+  },
+  {
+    "year": 2020,
+    "make": "Porsche",
+    "model": "911 GT3",
+    "segment": "luxury"
+  },
+  {
+    "year": 2020,
+    "make": "BMW",
+    "model": "X5",
+    "segment": "luxury"
+  },
+  {
+    "year": 2020,
+    "make": "Mercedes-Benz",
+    "model": "G-Class",
+    "segment": "luxury"
+  },
+  {
+    "year": 2020,
+    "make": "Ford",
+    "model": "Mustang",
+    "segment": "mid"
+  },
+  {
+    "year": 2020,
+    "make": "Toyota",
+    "model": "Land Cruiser",
+    "segment": "mid"
+  }
+]

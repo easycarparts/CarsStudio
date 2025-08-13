@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            background: #1f2937;
+            border: 1px solid #4b5563;
+            color: #fff;
+            border-radius: 5px;
+        }
+        input:focus {
+            outline: 2px solid #dc2626;
+            border-color: #dc2626;
+        }
+        button {
+            background: #dc2626;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background: #b91c1c;
+        }
+        .debug {
+            background: #333;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Form Input Test</h1>
+    
+    <div class="form-group">
+        <label for="year">Year:</label>
+        <input type="text" id="year" placeholder="Enter year" />
+    </div>
+    
+    <div class="form-group">
+        <label for="make">Make:</label>
+        <input type="text" id="make" placeholder="Enter make" />
+    </div>
+    
+    <div class="form-group">
+        <label for="model">Model:</label>
+        <input type="text" id="model" placeholder="Enter model" />
+    </div>
+    
+    <div class="form-group">
+        <button onclick="testInputs()">Test Inputs</button>
+        <button onclick="clearInputs()">Clear</button>
+    </div>
+    
+    <div class="debug" id="debug">
+        <h3>Debug Info:</h3>
+        <p>Click "Test Inputs" to see if the form is working</p>
+    </div>
+
+    <script>
+        function testInputs() {
+            const year = document.getElementById('year').value;
+            const make = document.getElementById('make').value;
+            const model = document.getElementById('model').value;
+            
+            document.getElementById('debug').innerHTML = `
+                <h3>Debug Info:</h3>
+                <p><strong>Year:</strong> "${year}"</p>
+                <p><strong>Make:</strong> "${make}"</p>
+                <p><strong>Model:</strong> "${model}"</p>
+                <p><strong>All inputs working:</strong> ✅</p>
+            `;
+        }
+        
+        function clearInputs() {
+            document.getElementById('year').value = '';
+            document.getElementById('make').value = '';
+            document.getElementById('model').value = '';
+            document.getElementById('debug').innerHTML = '<h3>Debug Info:</h3><p>Inputs cleared</p>';
+        }
+        
+        // Add event listeners to test real-time input
+        document.getElementById('year').addEventListener('input', function(e) {
+            console.log('Year input:', e.target.value);
+        });
+        
+        document.getElementById('make').addEventListener('input', function(e) {
+            console.log('Make input:', e.target.value);
+        });
+        
+        document.getElementById('model').addEventListener('input', function(e) {
+            console.log('Model input:', e.target.value);
+        });
+    </script>
+</body>
+</html>
