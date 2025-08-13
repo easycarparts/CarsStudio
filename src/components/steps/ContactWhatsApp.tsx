@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { generateWhatsAppMessage, calculateLeadGrade, trackEvent } from '@/lib/utils'
+import servicesConfig from '@/data/services.json'
 import { FunnelData } from '@/types/funnel'
 
 interface ContactWhatsAppProps {
@@ -81,6 +82,34 @@ export function ContactWhatsApp({
     navigator.clipboard.writeText(whatsappMessage)
   }
 
+  // Helpers to show human-friendly names (match mobile summary)
+  const getServiceName = (id?: string) =>
+    id ? servicesConfig.services[id as keyof typeof servicesConfig.services]?.name ?? id : ''
+
+  const getPackageName = (serviceId?: string, packageId?: string) => {
+    if (!serviceId || !packageId) return ''
+    const svc = servicesConfig.services[serviceId as keyof typeof servicesConfig.services] as any
+    const pkg = svc?.packages?.find((p: any) => p.id === packageId)
+    return pkg?.name || packageId
+  }
+
+  const getFinishName = (finishId?: string) => {
+    if (!data.service || !finishId) return ''
+    const svc = servicesConfig.services[data.service as keyof typeof servicesConfig.services] as any
+    const fin = svc?.finishes?.find((f: any) => f.id === finishId)
+    return fin?.name || finishId
+  }
+
+  const getBrandName = (brandId?: string) => {
+    if (!data.service || !brandId) return ''
+    const svc = servicesConfig.services[data.service as keyof typeof servicesConfig.services] as any
+    const b = svc?.brands?.find((x: any) => x.id === brandId)
+    return b?.name || brandId
+  }
+
+  const getTimingName = (id?: string) =>
+    id ? servicesConfig.timing.find(t => t.id === id)?.name ?? id : ''
+
   if (showConfirmation) {
     return (
       <motion.div
@@ -150,27 +179,38 @@ export function ContactWhatsApp({
         </p>
       </div>
 
-      {/* Trust Indicators */}
+      {/* Quote Summary (matches mobile) */}
       <div className="bg-gray-800 rounded-lg p-4 space-y-2">
-        <div className="flex items-center text-green-400 text-sm">
-          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
-          No spam, WhatsApp only
-        </div>
-        <div className="flex items-center text-green-400 text-sm">
-          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
-          Instant quote within 30 seconds
-        </div>
-        <div className="flex items-center text-green-400 text-sm">
-          <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-          </svg>
-          Top-rated UAE installers
+        <h3 className="text-white font-semibold mb-2">Your Quote</h3>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-gray-400">Service</span>
+            <span className="text-white">{getServiceName(data.service)}</span>
+          </div>
+          {data.package && (
+            <div className="flex justify-between">
+              <span className="text-gray-400">Package</span>
+              <span className="text-white">{getPackageName(data.service, data.package)}</span>
+            </div>
+          )}
+          {(data.finish || data.brand) && (
+            <div className="flex justify-between">
+              <span className="text-gray-400">Preference</span>
+              <span className="text-white">{getFinishName(data.finish) || getBrandName(data.brand)}</span>
+            </div>
+          )}
+          <div className="flex justify-between">
+            <span className="text-gray-400">Vehicle</span>
+            <span className="text-white">{data.year} {data.make} {data.model}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-gray-400">When</span>
+            <span className="text-white">{getTimingName(data.timing)}</span>
+          </div>
         </div>
       </div>
+
+      {/* Removed trust indicator card for cleaner desktop step 5 */}
 
       {/* Navigation */}
       <div className="flex gap-3">
